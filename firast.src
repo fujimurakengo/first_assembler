@@ -1,0 +1,27 @@
+; Simple example
+; Writes Hello World to the output
+
+	JMP start
+
+
+start:
+	
+	MOV D, 0xE8	; Point to output
+	
+	
+	MOV A,1		;最初の１
+	MOV B,1		;次の１
+
+.loop:
+	ADD   A, B	;A＋B
+	JC    .end	;オーバーフロー
+	PUSH  B		;スタックに格納する	
+	MOV   [D],A	;ｄにaを入れる
+	MOV   B,A   	; ＡをＢに入れる
+	POP   A		;ＡにさっきのＢを入れる
+	INC   D		;Dの書き込み先を確保
+	JMP   .loop	;最初の戻る
+	
+
+.end:
+	HLT             ; Stop execution
